@@ -6,9 +6,28 @@
 <mapper namespace="org.joonzis.mapper.BoardMapper">
 
     <!-- 전체 리스트 조회 -->
-    <select id="getList" resultType="org.joonzis.domain.BoardVO">
+    <!--  <select id="getList" resultType="org.joonzis.domain.BoardVO">
         SELECT * FROM TBL_BOARD
     </select>
+    -->
+    <select id="getList"
+			resultType="org.joonzis.domain.BoardVO">
+		<![CDATA[
+			SELECT bno, title, content, writer, regdate, updatedate
+			FROM
+			    (SELECT ROWNUM rn, a.*
+			    FROM
+			        (SELECT bno, title, content, writer, regdate, updatedate
+			        FROM TBL_BOARD
+			        ORDER BY bno desc) a
+			    WHERE ROWNUM <= #{pageNum} * #{amount})
+			WHERE rn > (#{pageNum}-1) * #{amount}
+		]]>
+	</select>
+	<!-- 게시글 전체 개수 -->
+	<select id="getTotal" resultType="int">
+		SELECT COUNT(*) FROM TBL_BOARD
+	</select>
 
     <!-- 데이터 삽입 -->
     <insert id="insert" parameterType="org.joonzis.domain.BoardVO">
