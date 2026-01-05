@@ -6,4 +6,35 @@
 	<select id="getList" resultType="org.joonzis.domain.BoardVO">
 	SELECT * FROM TBL_BOARD
 	</select>
+	<!-- 게시글 전체 개수 -->
+	<select id="getTotal" resultType="int">
+		SELECT COUNT(*) FROM TBL_BOARD
+	</select>
+
+    <!-- 데이터 삽입 -->
+    <insert id="insert" parameterType="org.joonzis.domain.BoardVO">
+        INSERT INTO TBL_BOARD (bno, title, content, writer, regdate, updatedate)
+        VALUES (seq_board.nextval, #{title}, #{content}, #{writer}, SYSDATE, SYSDATE)
+   </insert>
+
+
+    <!-- 단일 조회 -->
+    <select id="read" parameterType="int" resultType="org.joonzis.domain.BoardVO">
+        SELECT * FROM TBL_BOARD WHERE bno = #{bno}
+    </select>
+
+    <!-- 삭제 -->
+    <delete id="delete" parameterType="int">
+        DELETE FROM TBL_BOARD WHERE bno = #{bno}
+    </delete>
+
+    <!-- 수정 -->
+    <update id="update" parameterType="org.joonzis.domain.BoardVO">
+        UPDATE TBL_BOARD
+        SET title = #{title},
+            content = #{content},
+            writer = #{writer},
+            updatedate = SYSDATE
+        WHERE bno = #{bno}
+    </update>
 </mapper>

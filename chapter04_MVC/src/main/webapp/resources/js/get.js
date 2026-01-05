@@ -38,3 +38,40 @@ function modify(){
 	let bno = myForm.bno.value;
 	location .href = `/board/modify?bno=${bno}`;
 }
+
+// ------------댓글 관련 스크립트-------------------------
+const rs = replyService;  //reply.js에서 CRUD 담당 객체
+
+// 댓글 등록하기
+//rs.add(
+//	{
+//		bno : f.bno.value,
+//		reply : 'JS TEST',
+//		replyer : 'tester'
+//	},
+//	function(result){
+//		console.log(result);
+//	}
+//);
+
+// 댓글 리스트 가져오기
+//rs.getList(f.bno.value, function(result){
+//	console.log(result);
+//});
+
+
+// 댓글 삭제하기
+//rs.remove(11, function(result){
+//	console.log(result);
+//})
+
+// 댓글 수정하기
+//rs.update(2, {reply : '수정된 댓글입니다'}, function(result){
+//	console.log(result);
+//})
+
+// 댓글 조회하기
+rs.get(8, function(result){
+	console.log(result);
+})
+
