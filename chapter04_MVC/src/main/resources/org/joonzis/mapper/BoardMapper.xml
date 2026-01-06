@@ -4,11 +4,21 @@
 
 <mapper namespace="org.joonzis.mapper.BoardMapper">
 	<select id="getList" resultType="org.joonzis.domain.BoardVO">
-	SELECT * FROM TBL_BOARD
+		<![CDATA[
+	      SELECT bno, title, writer, regdate
+	      FROM
+	          (SELECT rownum rn, a.*
+	          FROM
+	              (SELECT bno, title, writer, regdate
+	              FROM tbl_board
+	              ORDER BY bno DESC) a
+	          WHERE rownum <= #{pageNum} * #{amount})
+	      WHERE rn > (#{pageNum}-1) * #{amount}
+		]]>
 	</select>
 	<!-- 게시글 전체 개수 -->
 	<select id="getTotal" resultType="int">
-		SELECT COUNT(*) FROM TBL_BOARD
+		SELECT COUNT(*) FROM TBL_BOARD 
 	</select>
 
     <!-- 데이터 삽입 -->
