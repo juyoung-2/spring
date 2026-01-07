@@ -23,7 +23,7 @@ public class BoardController {
 	public String list(Criteria cri, Model model) {
 		log.info("list..." + cri);
 		
-		
+		// 페이징 처리
 		if(cri.getPageNum()==0 || cri.getAmount()==0) {
 			cri.setPageNum(1);
 			cri.setAmount(15);
@@ -31,8 +31,8 @@ public class BoardController {
 		
 		model.addAttribute("list", service.getList(cri));
 		
+		// 페이징 이동을 위한 처리( 총 게시글 개수, 페이지의 개수 등)
 		int total = service.getTotal();
-		
 		log.info("total..."+total);
 		model.addAttribute("pageMaker", new PageDTO(cri,total));
 		return "/board/list";

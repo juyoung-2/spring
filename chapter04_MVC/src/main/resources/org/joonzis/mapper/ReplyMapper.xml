@@ -39,5 +39,11 @@
             updatedate = SYSDATE
         WHERE rno = #{rno}
     </update>
+    
+    <select id="getBno" resultType="int">
+	    SELECT bno
+	    FROM tbl_reply
+	    WHERE rno = #{rno}
+</select>
 
 </mapper>

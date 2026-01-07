@@ -200,6 +200,7 @@ function modifyModalPage(t){
 }
 
 function modifyReply(){
+	
 	const reply = {
 			reply : inputReply.value,
 			replyer : inputReplyer.value,
@@ -225,8 +226,7 @@ function modReplyModalStyle(){
 }
 
 
-function removeReply(event){
-	
+function removeReply(){
 	
 	if(!confirm("삭제하시겠습니까?"))return;
 	

@@ -5,11 +5,11 @@
 <mapper namespace="org.joonzis.mapper.BoardMapper">
 	<select id="getList" resultType="org.joonzis.domain.BoardVO">
 		<![CDATA[
-	      SELECT bno, title, writer, regdate
+	      SELECT bno, title, writer, regdate, replycnt
 	      FROM
 	          (SELECT rownum rn, a.*
 	          FROM
-	              (SELECT bno, title, writer, regdate
+	              (SELECT bno, title, writer, regdate, replycnt
 	              FROM tbl_board
 	              ORDER BY bno DESC) a
 	          WHERE rownum <= #{pageNum} * #{amount})
@@ -47,4 +47,12 @@
             updatedate = SYSDATE
         WHERE bno = #{bno}
     </update>
+    
+    <!-- 댓글 데이터 변경 -->
+    <update id="updateReplyCnt">
+        UPDATE TBL_BOARD
+        SET replycnt = replycnt + #{amount}
+        WHERE bno = #{bno}
+    </update>
+    
 </mapper>

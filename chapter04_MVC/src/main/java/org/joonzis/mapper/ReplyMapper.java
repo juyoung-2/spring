@@ -15,5 +15,6 @@ public interface ReplyMapper {
 	public int delete(int rno);
 	// 댓글 수정
 	public int update(ReplyVO vo);
-	
+	// 댓글이 속한 게시글 번호 조회
+	public int getBno(int rno);
 }
