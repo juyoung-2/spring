@@ -26,7 +26,11 @@
         INSERT INTO TBL_BOARD (bno, title, content, writer, regdate, updatedate)
         VALUES (seq_board.nextval, #{title}, #{content}, #{writer}, SYSDATE, SYSDATE)
    </insert>
-
+   
+	<select id="getCurrBno" resultType="int"> 
+		SELECT seq_board.currval FROM dual 
+	</select>
+	
 
     <!-- 단일 조회 -->
     <select id="read" parameterType="int" resultType="org.joonzis.domain.BoardVO">

@@ -44,6 +44,11 @@
 	    SELECT bno
 	    FROM tbl_reply
 	    WHERE rno = #{rno}
-</select>
+	</select>
+	
+	<!--  댓글 달려있는 게시글 삭제 -->
+	<delete id="deleteByBno" parameterType="int">
+    	DELETE FROM tbl_reply WHERE bno = #{bno}
+	</delete>
 
 </mapper>

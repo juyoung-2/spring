@@ -28,5 +28,5 @@ public interface BoardMapper {
    // 2. 댓글 삽입/ 삭제 시 updateReplyCnt메소드 실행
    // => 트랜잭션 처리
    // 3. 게시글 리스트에서 댓글 개수 변경 확인
-   
+   public int getCurrBno();
 }

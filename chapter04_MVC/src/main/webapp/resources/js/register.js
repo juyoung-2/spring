@@ -44,10 +44,29 @@ document.querySelectorAll("button").forEach(btn => {
 });
 
 function register(){
+	// 검증
 	if(f.title.value == '' || f.writer.value == '' || f.content.value == ''){
 		alert("내용을 입력하세요.");
 		return;
 	}
+	
+	let str=``;
+	let liElements = document.querySelectorAll(`.uploadResult ul li`);
+	liElements.forEach((li, index) => {
+		let path = li.getAttribute('path');
+		let uuid = li.getAttribute('uuid');
+		let fileName = li.getAttribute('fileName');
+		
+		str += `<input type="hidden" name="attachList[${index}].uploadPath" value="${path}"/>`;
+		str += `<input type="hidden" name="attachList[${index}].uuid" value="${uuid}"/>`;
+		str += `<input type="hidden" name="attachList[${index}].fileName" value="${fileName}"/>`;
+		
+	});
+	
+	//f.innerHTML += str;    //데이터 초기화 O
+	f.insertAdjacentHTML('beforeend', str);   // 데이터 초기화 X
+	
+	// 폼 내용을 post로 전송
 	f.action = '/board/register';
 	//f.method='POST';
 	f.submit();	// post 방식으로 컨트롤러의 register로  값을 들고 접근

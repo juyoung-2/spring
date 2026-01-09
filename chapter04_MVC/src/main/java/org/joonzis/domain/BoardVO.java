@@ -1,6 +1,7 @@
 package org.joonzis.domain;
 
 import java.sql.Date;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,4 +15,5 @@ public class BoardVO {
 	private String title, content, writer;
 	private Date regdate, updatedate;
 	
+	private List<BoardAttachVO> attachList;
 }
