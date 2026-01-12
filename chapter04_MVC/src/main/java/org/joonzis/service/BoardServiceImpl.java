@@ -2,6 +2,7 @@ package org.joonzis.service;
 
 import java.util.List;
 
+import org.joonzis.domain.BoardAttachVO;
 import org.joonzis.domain.BoardVO;
 import org.joonzis.domain.Criteria;
 import org.joonzis.mapper.BoardAttachMapper;
@@ -83,12 +84,38 @@ public class BoardServiceImpl implements BoardService{
 		return mapper.delete(bno) == 1; // 행 하나를 삭제 결과 + bno는 PK이기에
 	}
 
+	// 첨부 파일들 포함 수정
+	@Transactional
 	@Override
 	public boolean modify(BoardVO vo) {
 		log.info("modify..." + vo);
-		return mapper.update(vo) == 1;
+		
+		// 1️. 게시글 수정
+		boolean result = mapper.update(vo) == 1;
+
+		// 2️. 기존 첨부파일 DB 삭제
+		attachMapper.deleteAll(vo.getBno());
+		
+		// 3️. 새 첨부파일 DB 저장(다시 insert)
+		if (vo.getAttachList() != null && vo.getAttachList().size() > 0) {
+			vo.getAttachList().forEach(attach -> {
+				attach.setBno(vo.getBno());
+				attachMapper.insert(attach);
+			});
+		}
+		return result;
 	}
 	
-	
+	// 첨부 파일 리스트 가져오기
+	@Override
+	public List<BoardAttachVO> getAttachList(int bno) {
+		log.info("getAttachList..." + bno);
+		return attachMapper.findByBno(bno);
+	}
 
+	
+	
+	
+	
+	
 }

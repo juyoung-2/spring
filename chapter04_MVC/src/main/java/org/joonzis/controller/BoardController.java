@@ -1,10 +1,16 @@
 package org.joonzis.controller;
 
+import java.util.List;
+
+import org.joonzis.domain.BoardAttachVO;
 import org.joonzis.domain.BoardVO;
 import org.joonzis.domain.Criteria;
 import org.joonzis.domain.PageDTO;
 import org.joonzis.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -63,7 +69,7 @@ public class BoardController {
 	// 수정 페이지
 	@GetMapping("/modify")
 	public String modifyPage(@RequestParam("bno")int bno, Model model) {
-		log.info("nodify..."+bno);
+		log.info("modify..."+bno);
 		model.addAttribute("vo", service.get(bno));
 		return "/board/modify";
 	}
@@ -83,4 +89,15 @@ public class BoardController {
 		model.addAttribute("vo", service.remove(bno));
 		return "redirect:/board/list";
 	}
+	
+	// 첨부 파일 리스트 가져오기
+	@ResponseBody
+	@GetMapping(value = "/getAttachList/{bno}",
+			produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<List<BoardAttachVO>> getAttachList(@PathVariable("bno")int bno){
+	log.info("getAttachList..."+bno);
+	return new ResponseEntity<List<BoardAttachVO>>(service.getAttachList(bno), HttpStatus.OK);
+	
+	}
+	
 }

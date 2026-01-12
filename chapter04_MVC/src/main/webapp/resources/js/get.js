@@ -243,7 +243,37 @@ function removeReply(){
 		
 }
 
+// --------------첨부 파일 관련 스크립트
 
+
+// 파일 리스트 콘솔에 출력
+(function(){
+	fetch(`/board/getAttachList/${f.bno.value}`)
+		.then(response => response.json())
+		.then(data => {
+			showUploadedFile(data);
+		})
+		.catch(err => console.log(err));
+})();
+
+let uploadResult = document.querySelector('.uploadResult ul');
+function showUploadedFile(uploadResultArr){
+	let str = '';
+	uploadResultArr.forEach( file => {
+		let fileCallPath = encodeURIComponent(
+				file.uploadPath + "/" +
+				file.uuid + "_" +
+				file.fileName
+		);
+		str += `<li path="${file.uploadPath}" uuid="${file.uuid}" fileName="${file.fileName}">`;
+		str += `<a href="/download?fileName=${fileCallPath}">`;
+		str += `${file.fileName}`;
+		str += `</a>`;
+		//str += `<span class="removeFile" data-file="${fileCallPath}"> X </span>`;
+		str += `</li>`;
+	});
+	uploadResult.innerHTML = str;
+}
 
 
 

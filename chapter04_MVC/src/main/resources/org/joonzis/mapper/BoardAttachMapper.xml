@@ -13,8 +13,15 @@
 		)
 	</insert>
 	
+	<!-- 개별 파일 삭제 -->
 	<delete id="delete">
 		delete from tbl_attach where uuid=#{uuid}
+	</delete>
+	
+	<!-- 게시글 수정 시 전체 삭제 -->
+	<delete id="deleteAll" parameterType="int">
+		delete from tbl_attach
+		where bno = #{bno}
 	</delete>
 	
 	<select id="findByBno" resultType="org.joonzis.domain.BoardAttachVO">

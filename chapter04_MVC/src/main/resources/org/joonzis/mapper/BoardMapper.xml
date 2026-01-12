@@ -22,6 +22,14 @@
 	</select>
 
     <!-- 데이터 삽입 -->
+     <!-- <selectKey
+    	keyProperty="bno"
+    	resultType="int"
+    	order="BEFORE">
+   		SELECT seq_board.nextval from dual
+   	</selectKey> -->
+   	<!-- insert 쿼리 안에 selectkey 넣으면 먼저 select 가능 -->
+   	<!-- selectkey를 사용하려면  seq_board.nextval 이 부분을 ${bno}로 수정-->
     <insert id="insert" parameterType="org.joonzis.domain.BoardVO">
         INSERT INTO TBL_BOARD (bno, title, content, writer, regdate, updatedate)
         VALUES (seq_board.nextval, #{title}, #{content}, #{writer}, SYSDATE, SYSDATE)

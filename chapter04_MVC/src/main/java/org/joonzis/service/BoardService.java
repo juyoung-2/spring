@@ -2,6 +2,7 @@ package org.joonzis.service;
 
 import java.util.List;
 
+import org.joonzis.domain.BoardAttachVO;
 import org.joonzis.domain.BoardVO;
 import org.joonzis.domain.Criteria;
 
@@ -18,4 +19,7 @@ public interface BoardService {
 	public boolean remove(int bno);
 	// 데이터 수정
 	public boolean modify(BoardVO vo);
+	// 첨부 파일 리스트
+	public List<BoardAttachVO> getAttachList(int bno);
+	
 }
